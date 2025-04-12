@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+Student Name: Jurnee Wright
+Programming Description: Computer Build Registration Form using EmailJS
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computer Build Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      height: 20px;
+      padding: 1px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .radio-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 8px;
+      width: 100%;
+      border: none;
+      background: #007b00;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: palevioletred;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("0iPHTf16AAFAViVyk");
+    })();
+
+    window.onload = function () {
+      document.getElementById('name').focus();
+
+      const contactForm = document.getElementById('contactForm');
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (contactForm.checkValidity()) {
+          togglebuildForm(true);
+        } else {
+          contactForm.reportValidity();
+        }
+      });
+
+      document.getElementById('computerBuild').addEventListener('submit', function(event) {
+        event.preventDefault();
+        sendEmail();
+      });
+    };
+
+    function togglebuildInfo(show) {
+      const buildInfo = document.getElementById('buildInfo');
+      if (show) {
+        buildInfo.classList.remove('hidden');
+      } else {
+        buildInfo.classList.add('hidden');
+      }
+    }
+
+    function togglebuildForm(show) {
+      const computerBuild = document.getElementById('computerBuild');
+      if (show) {
+        computerBuild.classList.remove('hidden');
+      } else {
+        computerBuild.classList.add('hidden');
+      }
+    }
+
+    function sendEmail() {
+      const buildYesChecked = document.getElementById("buildYes").checked;
+
+      const templateParams = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        city: document.getElementById("city").value,
+        state: document.getElementById("state").value,
+        zipcode: document.getElementById("zipcode").value,
+        phone: document.getElementById("phone").value,
+        cpu: buildYesChecked ? document.getElementById("cpu").value : "Not provided",
+        mobo: buildYesChecked ? document.getElementById("mobo").value : "Not provided",
+        ram: buildYesChecked ? document.getElementById("ram").value : "Not provided",
+        gpu: buildYesChecked ? document.getElementById("gpu").value : "Not provided",
+        cooling: buildYesChecked ? document.getElementById("cooling").value : "Not provided",
+        memory: buildYesChecked ? document.getElementById("memory").value : "Not provided",
+        memory2: buildYesChecked ? document.getElementById("memory2").value : "None",
+        psu: buildYesChecked ? document.getElementById("psu").value : "Not provided"
+      };
+
+      emailjs.send("service_frhey0i", "template_mvjnods", templateParams)
+        .then(function(response) {
+          alert("Receipt sent to your email!");
+        }, function(error) {
+          alert("Failed to send email. Try again.");
+        });
+
+      return true;
+    }
+  </script>
+</head>
+
+<body>
+  <form id="contactForm">
+    <fieldset>
+      <legend>Contact Information</legend>
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="address">Address:</label>
+      <input type="text" id="address" required>
+
+      <label for="city">City:</label>
+      <input type="text" id="city" required>
+
+      <label for="state">State:</label>
+      <select id="state">
+        <option value="AK">AK</option>
+        <option value="AL">AL</option>
+        <option value="AR">AR</option>
+        <option value="AZ">AZ</option>
+        <option value="CA">CA</option>
+        <option value="CO">CO</option>
+        <option value="CT">CT</option>
+        <option value="DE">DE</option>
+        <option value="FL">FL</option>
+        <option value="GA">GA</option>
+        <option value="HI">HI</option>
+        <option value="IA">IA</option>
+        <option value="ID">ID</option>
+        <option value="IL">IL</option>
+        <option value="IN">IN</option>
+        <option value="KS">KS</option>
+        <option value="KY">KY</option>
+        <option value="LA">LA</option>
+        <option value="MA">MA</option>
+        <option value="MD">MD</option>
+        <option value="ME">ME</option>
+        <option value="MI">MI</option>
+        <option value="MN">MN</option>
+        <option value="MO">MO</option>
+        <option value="MS">MS</option>
+        <option value="MT">MT</option>
+        <option value="NC">NC</option>
+        <option value="ND">ND</option>
+        <option value="NE">NE</option>
+        <option value="NH">NH</option>
+        <option value="NJ">NJ</option>
+        <option value="NM">NM</option>
+        <option value="NV">NV</option>
+        <option value="NY">NY</option>
+        <option value="OH">OH</option>
+        <option value="OK">OK</option>
+        <option value="OR">OR</option>
+        <option value="PA">PA</option>
+        <option value="RI">RI</option>
+        <option value="SC">SC</option>
+        <option value="SD">SD</option>
+        <option value="TN">TN</option>
+        <option value="TX">TX</option>
+        <option value="UT">UT</option>
+        <option value="VA">VA</option>
+        <option value="VT">VT</option>
+        <option value="WA">WA</option>
+        <option value="WI">WI</option>
+        <option value="WV">WV</option>
+        <option value="WY">WY</option>
+        </select required>
+      <label for="zipcode">Zip Code:</label>
+      <input type="text" id="zipcode" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <input type="submit" value="Submit">
+      <input type="reset" value="Reset">
+    </fieldset>
+  </form>
+
+  <form id="computerBuild" class="hidden">
+    <fieldset>
+      <legend>Computer Build Request</legend>
+
+      <label for="customerQuestion">Do you know the specifications for your build?</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="buildYes" name="buildChoice" value="yes" onclick="togglebuildInfo(true)">
+          <label for="buildYes">Yes</label>
+        </div>
+
+        <div class="radio-option">
+          <input type="radio" id="buildNo" name="buildChoice" value="no" onclick="togglebuildInfo(false)">
+          <label for="buildNo">No</label>
+        </div>
+      </div>
+
+      <div id="buildInfo" class="hidden">
+        <label for="build">Build:</label>
+        <input type="text" id="cpu" placeholder="CPU">
+        <input type="text" id="mobo" placeholder="Motherboard">
+        <input type="text" id="ram" placeholder="RAM">
+        <input type="text" id="gpu" placeholder="GPU">
+        <input type="text" id="cooling" placeholder="Cooling System">
+        <input type="text" id="memory" placeholder="SSD/HDD">
+        <input type="text" id="memory2" placeholder="SSD/HDD (optional)">
+        <input type="text" id="psu" placeholder="Power Supply">
+      </div>
+
+      <button type="submit" style="background-color: darkorchid;">Submit</button>
+    </fieldset>
+  </form>
+</body>
+</html>
